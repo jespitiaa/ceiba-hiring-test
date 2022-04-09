@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="user"
+            type="com.ceibasoftware.hiringtest.jespitiaa.model.User" />
+        <variable
+            name="showPublicationsBtn"
+            type="java.lang.Boolean" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:dividerPadding="2dp"
+        android:orientation="vertical"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:id="@+id/userNameTV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@{user.name}"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/userPhoneTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{user.phone}"
+            app:drawableLeftCompat="@android:drawable/stat_sys_phone_call" />
+
+        <TextView
+            android:id="@+id/userEmailTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{user.email}"
+            app:drawableLeftCompat="@android:drawable/ic_dialog_email" />
+
+        <TextView
+            android:id="@+id/userPostsBtnTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="@string/user_posts_button"
+            android:textAllCaps="true"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="@{showPublicationsBtn ? View.GONE : View.VISIBLE}"/>
+
+    </LinearLayout>
+</layout>
