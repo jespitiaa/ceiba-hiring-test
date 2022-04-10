@@ -1,19 +1,16 @@
 package com.ceibasoftware.hiringtest.jespitiaa.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ceibasoftware.hiringtest.jespitiaa.BR
 import com.ceibasoftware.hiringtest.jespitiaa.databinding.FragmentUserPostsBinding
-import com.ceibasoftware.hiringtest.jespitiaa.model.Post
 import com.ceibasoftware.hiringtest.jespitiaa.ui.adapters.UserPostsAdapter
 import com.ceibasoftware.hiringtest.jespitiaa.viewmodel.UserPostsViewModel
 import androidx.recyclerview.widget.DividerItemDecoration

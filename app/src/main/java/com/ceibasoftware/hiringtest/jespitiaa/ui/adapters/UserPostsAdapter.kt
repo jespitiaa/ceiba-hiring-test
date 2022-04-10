@@ -27,7 +27,7 @@ class UserPostsAdapter : RecyclerView.Adapter<UserPostsAdapter.UserPostsViewHold
     }
 
     override fun onBindViewHolder(holder: UserPostsViewHolder, position: Int) {
-        holder.viewDataBinding.also { it ->
+        holder.viewDataBinding.also {
             it.post = posts[position]
         }
     }

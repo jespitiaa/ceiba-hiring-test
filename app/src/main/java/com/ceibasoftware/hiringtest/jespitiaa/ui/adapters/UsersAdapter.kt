@@ -29,7 +29,7 @@ class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>(){
     }
 
     override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
-        holder.viewDataBinding.also { it ->
+        holder.viewDataBinding.also {
             it.user = users[position]
         }
         holder.viewDataBinding.showPublicationsBtn = true

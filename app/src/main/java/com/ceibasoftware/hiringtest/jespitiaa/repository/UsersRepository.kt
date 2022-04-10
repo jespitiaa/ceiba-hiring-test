@@ -9,7 +9,7 @@ import com.ceibasoftware.hiringtest.jespitiaa.network.NetworkServiceAdapter
 
 class UsersRepository (val application: Application, private val usersDao: UserDao){
     suspend fun refreshData(): List<User>{
-        var cached = usersDao.getUsers()
+        val cached = usersDao.getUsers()
         return if(cached.isNullOrEmpty()){
             val cm = application.baseContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             if( cm.activeNetworkInfo?.type != ConnectivityManager.TYPE_WIFI && cm.activeNetworkInfo?.type != ConnectivityManager.TYPE_MOBILE){

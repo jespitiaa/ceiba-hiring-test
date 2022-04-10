@@ -7,8 +7,8 @@
     <fragment
         android:id="@+id/usersFragment"
         android:name="com.ceibasoftware.hiringtest.jespitiaa.ui.UsersFragment"
-        android:label="fragment_users"
-        tools:layout="@layout/fragment_users" >
+        android:label="@string/app_title"
+        tools:layout="@layout/fragment_users">
         <action
             android:id="@+id/action_usersFragment_to_userPostsFragment"
             app:destination="@id/userPostsFragment" />
@@ -16,7 +16,7 @@
     <fragment
         android:id="@+id/userPostsFragment"
         android:name="com.ceibasoftware.hiringtest.jespitiaa.ui.UserPostsFragment"
-        android:label="UserPostsFragment" >
+        android:label="@string/app_title">
         <argument
             android:name="user"
             app:argType="com.ceibasoftware.hiringtest.jespitiaa.model.User" />
