@@ -18,7 +18,7 @@ import kotlin.coroutines.suspendCoroutine
 
 class NetworkServiceAdapter constructor(context: Context) {
     companion object{
-        const val BASE_URL= "https://back-vinyls-populated.herokuapp.com/"
+        const val BASE_URL= "https://jsonplaceholder.typicode.com/"
         var instance: NetworkServiceAdapter? = null
         fun getInstance(context: Context) =
             instance ?: synchronized(this) {
@@ -36,7 +36,7 @@ class NetworkServiceAdapter constructor(context: Context) {
             { response ->
                 val resp = JSONArray(response)
                 val list = mutableListOf<User>()
-                var item:JSONObject? = null
+                var item: JSONObject?
                 for (i in 0 until resp.length()) {
                     item = resp.getJSONObject(i)
                     list.add(i, User(item.getInt("id"), item.getString("name"), item.getString("username"), item.getString("email"), item.getString("phone"), item.getString("website")))
@@ -48,14 +48,13 @@ class NetworkServiceAdapter constructor(context: Context) {
             }))
     }
     suspend fun getPosts(userId:Int) = suspendCoroutine<List<Post>>{ cont->
-        requestQueue.add(getRequest("posts/$userId",
+        requestQueue.add(getRequest("users/$userId/posts",
             { response ->
                 val resp = JSONArray(response)
                 val list = mutableListOf<Post>()
-                var item:JSONObject? = null
+                var item:JSONObject?
                 for (i in 0 until resp.length()) {
                     item = resp.getJSONObject(i)
-                    Log.d("Response", item.toString())
                     list.add(i, Post(item.getInt("id"), item.getInt("userId"), item.getString("title"), item.getString("body")))
                 }
                 cont.resume(list)

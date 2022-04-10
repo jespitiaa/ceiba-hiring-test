@@ -1,6 +1,9 @@
 package com.ceibasoftware.hiringtest.jespitiaa.ui
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -32,7 +35,7 @@ class UsersFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentUsersBinding.inflate(inflater, container, false)
         viewModelAdapter = UsersAdapter()
         return binding.root
@@ -57,9 +60,23 @@ class UsersFragment : Fragment() {
             "You can only access the viewModel after onActivityCreated()"
         }
         viewModel = ViewModelProvider(this, UsersViewModel.Factory(activity.application)).get(UsersViewModel::class.java)
-        viewModel.users.observe(viewLifecycleOwner, Observer<List<User>> {
+        viewModel.users.observe(viewLifecycleOwner, {
             it.apply {
                 viewModelAdapter!!.users = this
+                binding.emptyListTV.visibility = if(this.isNullOrEmpty()) View.VISIBLE else View.GONE
+            }
+        })
+
+        binding.editTextTextPersonName.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.userQuery = s.toString()
+                viewModel.refreshData()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
         })
     }

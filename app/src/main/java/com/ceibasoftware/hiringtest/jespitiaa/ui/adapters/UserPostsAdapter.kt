@@ -21,7 +21,8 @@ class UserPostsAdapter : RecyclerView.Adapter<UserPostsAdapter.UserPostsViewHold
             LayoutInflater.from(parent.context),
             UserPostsViewHolder.LAYOUT,
             parent,
-            false)
+            false
+        )
         return UserPostsViewHolder(withDataBinding)
     }
 
@@ -40,7 +41,7 @@ class UserPostsAdapter : RecyclerView.Adapter<UserPostsAdapter.UserPostsViewHold
         RecyclerView.ViewHolder(viewDataBinding.root) {
         companion object {
             @LayoutRes
-            val LAYOUT = R.layout.user_item
+            val LAYOUT = R.layout.post_item
         }
     }
 

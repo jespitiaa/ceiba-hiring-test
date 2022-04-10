@@ -4,10 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.ceibasoftware.hiringtest.jespitiaa.BR
 import com.ceibasoftware.hiringtest.jespitiaa.R
 import com.ceibasoftware.hiringtest.jespitiaa.databinding.UserItemBinding
 import com.ceibasoftware.hiringtest.jespitiaa.model.User
+import com.ceibasoftware.hiringtest.jespitiaa.ui.UsersFragmentDirections
 
 class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>(){
     var users :List<User> = emptyList()
@@ -28,6 +31,13 @@ class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>(){
     override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
         holder.viewDataBinding.also { it ->
             it.user = users[position]
+        }
+        holder.viewDataBinding.showPublicationsBtn = true
+        holder.viewDataBinding.setVariable(BR.showPublicationsBtn, true)
+        holder.viewDataBinding.root.setOnClickListener {
+            val action = UsersFragmentDirections.actionUsersFragmentToUserPostsFragment(users[position])
+            // Navigate using that action
+            holder.viewDataBinding.root.findNavController().navigate(action)
         }
     }
 

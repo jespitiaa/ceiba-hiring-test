@@ -1,7 +1,10 @@
 package com.ceibasoftware.hiringtest.jespitiaa.model
 
+import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
+@Entity(tableName = "users_table")
 data class User(
     @PrimaryKey val id: Int,
     val name: String,
@@ -11,4 +14,4 @@ data class User(
     val website: String
     //address
     //company
-)
+): Serializable

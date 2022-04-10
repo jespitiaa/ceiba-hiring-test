@@ -1,22 +1,25 @@
 package com.ceibasoftware.hiringtest.jespitiaa.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ceibasoftware.hiringtest.jespitiaa.BR
 import com.ceibasoftware.hiringtest.jespitiaa.databinding.FragmentUserPostsBinding
-import com.ceibasoftware.hiringtest.jespitiaa.databinding.FragmentUsersBinding
 import com.ceibasoftware.hiringtest.jespitiaa.model.Post
-import com.ceibasoftware.hiringtest.jespitiaa.model.User
 import com.ceibasoftware.hiringtest.jespitiaa.ui.adapters.UserPostsAdapter
-import com.ceibasoftware.hiringtest.jespitiaa.ui.adapters.UsersAdapter
 import com.ceibasoftware.hiringtest.jespitiaa.viewmodel.UserPostsViewModel
-import com.ceibasoftware.hiringtest.jespitiaa.viewmodel.UsersViewModel
+import androidx.recyclerview.widget.DividerItemDecoration
+
+
+
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -36,18 +39,23 @@ class UserPostsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentUserPostsBinding.inflate(inflater, container, false)
         viewModelAdapter = UserPostsAdapter()
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = binding.postsRv
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        val linearLayoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = viewModelAdapter
+        val dividerItemDecoration = DividerItemDecoration(
+            recyclerView.context,
+            linearLayoutManager.orientation
+        )
+        recyclerView.addItemDecoration(dividerItemDecoration)
     }
 
     override fun onDestroyView() {
@@ -60,9 +68,15 @@ class UserPostsFragment : Fragment() {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
-        viewModel = ViewModelProvider(this, UserPostsViewModel.Factory(activity.application)).get(
+        val args: UserPostsFragmentArgs by navArgs()
+        binding.setVariable(BR.user, args.user)
+        binding.setVariable(BR.showPublicationsBtn, false)
+        binding.includedLayout.showPublicationsBtn = false
+        binding.includedLayout.setVariable(BR.showPublicationsBtn, false)
+        binding.includedLayout.userPostsBtnTV.visibility = View.GONE
+        viewModel = ViewModelProvider(this, UserPostsViewModel.Factory(activity.application, args.user.id)).get(
             UserPostsViewModel::class.java)
-        viewModel.posts.observe(viewLifecycleOwner, Observer<List<Post>> {
+        viewModel.posts.observe(viewLifecycleOwner, {
             it.apply {
                 viewModelAdapter!!.posts = this
             }
